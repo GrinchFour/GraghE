@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "GraphEditor/1.0.0": {
+        "dependencies": {
+          "WriteableBitmapEx": "1.6.5"
+        },
+        "runtime": {
+          "GraphEditor.dll": {}
+        }
+      },
+      "WriteableBitmapEx/1.6.5": {
+        "runtime": {
+          "lib/netcoreapp3.0/WriteableBitmapEx.Wpf.dll": {
+            "assemblyVersion": "1.6.5.0",
+            "fileVersion": "1.6.5.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GraphEditor/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WriteableBitmapEx/1.6.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cfOaqu1D/HQCXEesBho9oF96Jer3waPJcmd9DYx0OOjMpc2yY2ahIk/3K+4rJLnPP6mL/l4X8nqrmNKzwA1dJA==",
+      "path": "writeablebitmapex/1.6.5",
+      "hashPath": "writeablebitmapex.1.6.5.nupkg.sha512"
+    }
+  }
+}
