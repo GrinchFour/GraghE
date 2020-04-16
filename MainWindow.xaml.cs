@@ -26,7 +26,7 @@ namespace GraphEditor
         WriteableBitmap bmp = BitmapFactory.New(650, 350);
         bool draw = false;
         int x, y = 0;
-        int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+        int x1 = 0, y1 = 0, x2 = 1, y2 = 1;
         int size = 1;
         Color clr = Colors.Black;
 
@@ -39,7 +39,7 @@ namespace GraphEditor
             bmp.Clear(Colors.White);
             canvas.Source = bmp;
 
-            //    Button button = new Button()
+            //    Button button = new Button() // Добавление кнопок, может понадобиться для слоёв и истории
             //    {
             //        Content = "Григорий линия",
             //    Background = Brushes.Pink
@@ -57,36 +57,54 @@ namespace GraphEditor
 
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(tools[tools.Count - 1] == null) { 
-            }else if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
-                var canv = sender as Image;
-                currentPoint = e.GetPosition(canv);
-
-                if (tools[tools.Count - 1].tool_name == "Pencil" || tools[tools.Count - 1].tool_name == "Brush")
+                if (tools[tools.Count - 1] == null)
                 {
-                    x1 = (int)currentPoint.X;
-                    y1 = (int)currentPoint.Y;
+                }
+                else if (tools[tools.Count - 1].tool_name == "Broken line" && x1 == x2 && y1 == y2)
+                {
+                    tools.Add(null);
                 }
                 else
                 {
-                    x = (int)currentPoint.X;
-                    y = (int)currentPoint.Y;
+                    var canv = sender as Image;
+                    currentPoint = e.GetPosition(canv);
+
+                    if (tools[tools.Count - 1].tool_name == "Pencil" || tools[tools.Count - 1].tool_name == "Brush")
+                    {
+                        x1 = (int)currentPoint.X;
+                        y1 = (int)currentPoint.Y;
+                    }
+                    else
+                    {
+                        x = (int)currentPoint.X;
+                        y = (int)currentPoint.Y;
+                    }
+
+                    _buf = bmp.Clone();
+
+                    draw = true;
                 }
-
-                _buf = bmp.Clone();
-
-                draw = true;
             }
             else { }
         }
 
         private void Canvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            //if (draw) {
-            //    FileStream file = new FileStream("test.tga", FileMode.Create, FileAccess.ReadWrite);
-            //    bmp.WriteTga(file); }
-            draw = false;
+
+            if (tools[tools.Count - 1] != null && tools[tools.Count - 1].tool_name == "Broken line")
+            {
+                x1 = x2;
+                y1 = y2;
+                x2 = (int)currentPoint.X;
+                y2 = (int)currentPoint.Y;
+                Drawing(tools[tools.Count - 1].tool_name);
+            }
+            else
+            {
+                draw = false;
+            }
         }
 
         WriteableBitmap _buf;
@@ -112,7 +130,6 @@ namespace GraphEditor
             }
         }
 
-        //[Obsolete]
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
 
@@ -121,7 +138,7 @@ namespace GraphEditor
                 var canv = sender as Image;
                 currentPoint = e.GetPosition(canv);
 
-               
+
 
                 if (tools[tools.Count - 1].tool_name == "Rectangle" || tools[tools.Count - 1].tool_name == "Ellipse")
                 {
@@ -173,15 +190,14 @@ namespace GraphEditor
                 case "Cut line":
                     bmp.DrawLine(x1, y1, x2, y2, clr);
                     break;
-                case "Broken line": // bmp.DrawEllipse(x1, y1, x2, y2, Colors.Black);
+                case "Broken line":
+                    bmp.DrawLine(x1, y1, x2, y2, clr);
                     break;
                 case "Pencil":
                     bmp.DrawLine(x1, y1, x2, y2, clr); x1 = x2; y1 = y2;
                     break;
                 case "Brush":
                     bmp.DrawLineAa(x1, y1, x2, y2, clr, size); x1 = x2; y1 = y2;
-
-                   // bmp.SetPixel()
                     break;
                 default:
                     break;
@@ -223,3 +239,11 @@ namespace GraphEditor
         }
     }
 }
+
+// Починить размер кисти
+// Сделать историю и слои
+// Добавить иконку цвета, который в данный момент используется
+// Разобраться с оформлением
+// Сделать привязку канваса к окну, привязать bmp к размеру канваса
+//
+//
