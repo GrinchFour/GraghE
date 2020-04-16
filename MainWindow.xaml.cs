@@ -27,10 +27,11 @@ namespace GraphEditor
         bool draw = false;
         int x, y = 0;
         int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
-        int _figure = 0;
         int size = 1;
         Color clr = Colors.Black;
 
+        List<Tool> tools = new List<Tool>();
+        List<int> points = new List<int>();
 
         public MainWindow()
         {
@@ -56,12 +57,13 @@ namespace GraphEditor
 
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if(tools[tools.Count - 1] == null) { 
+            }else if (e.LeftButton == MouseButtonState.Pressed)
             {
                 var canv = sender as Image;
                 currentPoint = e.GetPosition(canv);
 
-                if (_figure == 5 || _figure == 6)
+                if (tools[tools.Count - 1].tool_name == "Pencil" || tools[tools.Count - 1].tool_name == "Brush")
                 {
                     x1 = (int)currentPoint.X;
                     y1 = (int)currentPoint.Y;
@@ -113,19 +115,30 @@ namespace GraphEditor
         //[Obsolete]
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if (draw)
+
+            if (draw && tools.Count != 0)
             {
                 var canv = sender as Image;
                 currentPoint = e.GetPosition(canv);
 
-                if (_figure == 1 || _figure == 2)
+               
+
+                if (tools[tools.Count - 1].tool_name == "Rectangle" || tools[tools.Count - 1].tool_name == "Ellipse")
                 {
                     x1 = x < (int)currentPoint.X ? x : (int)currentPoint.X;
                     x2 = x > (int)currentPoint.X ? x : (int)currentPoint.X;
                     y1 = y < (int)currentPoint.Y ? y : (int)currentPoint.Y;
                     y2 = y > (int)currentPoint.Y ? y : (int)currentPoint.Y;
                 }
-                else if (_figure == 5 || _figure == 6)
+                //   else if (_figure == 4)
+                // {
+                //    if (x1 == x && y1 == y)
+                //    x1 = x;
+                //    y1 = y;
+                //    x2 = (int)currentPoint.X;
+                //   y2 = (int)currentPoint.Y;
+                // }
+                else if (tools[tools.Count - 1].tool_name == "Pencil" || tools[tools.Count - 1].tool_name == "Brush")
                 {
                     x2 = (int)currentPoint.X;
                     y2 = (int)currentPoint.Y;
@@ -138,36 +151,75 @@ namespace GraphEditor
                     y2 = (int)currentPoint.Y;
                 }
 
-                if (_figure == 5 || _figure == 6) { } else { Load(); }
+                if (tools[tools.Count - 1].tool_name == "Pencil" || tools[tools.Count - 1].tool_name == "Brush") { } else { Load(); }
                 //   bmp = BitmapFactory.New(650, 350).FromResource("\\test.tga");
-                Drawing(_figure);
+                // у конкретной фигуры должен быть уже прописанный конкретный способ рисования, вызывать последний созданный объект и рисовать на основании его названия?
 
+                Drawing(tools[tools.Count - 1].tool_name); // Можно вместо 1 оставить перемнную, как счётчик для истории // Узнать про прозрачность цвета
             }
             else { }
+        }
+
+        private void Drawing(string tool_name)
+        {
+            switch (tool_name)
+            {
+                case "Rectangle":
+                    bmp.DrawRectangle(x1, y1, x2, y2, clr);
+                    break;
+                case "Ellipse":
+                    bmp.DrawEllipse(x1, y1, x2, y2, clr);
+                    break;
+                case "Cut line":
+                    bmp.DrawLine(x1, y1, x2, y2, clr);
+                    break;
+                case "Broken line": // bmp.DrawEllipse(x1, y1, x2, y2, Colors.Black);
+                    break;
+                case "Pencil":
+                    bmp.DrawLine(x1, y1, x2, y2, clr); x1 = x2; y1 = y2;
+                    break;
+                case "Brush":
+                    bmp.DrawLineAa(x1, y1, x2, y2, clr, size); x1 = x2; y1 = y2;
+
+                   // bmp.SetPixel()
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void DrawTool(object sender, RoutedEventArgs e)
         {
             string name = (string)(sender as Button).Content;
-            if (name == "Rectangle") { _figure = 1; }
-            else if (name == "Ellipse") { _figure = 2; }
-            else if (name == "Cut line") { _figure = 3; }
-            else if (name == "Broken line") { _figure = 4; }
-            else if (name == "Pencil") { _figure = 5; }
-            else if (name == "Brush") { _figure = 6; }
-            else { _figure = 3; }
+            switch (name)
+            {
+                case "Rectangle":
+                    Tool Rectangle = new Tool(points, clr, name);
+                    tools.Add(Rectangle);
+                    break;
+                case "Ellipse":
+                    Tool Ellipse = new Tool(points, clr, name);
+                    tools.Add(Ellipse);
+                    break;
+                case "Cut line":
+                    Tool Cut_Line = new Tool(points, clr, name);
+                    tools.Add(Cut_Line);
+                    break;
+                case "Broken line":
+                    Tool Broken_Line = new Tool(points, size, clr, name);
+                    tools.Add(Broken_Line);
+                    break;
+                case "Pencil":
+                    Tool Pencil = new Tool(points, clr, name);
+                    tools.Add(Pencil);
+                    break;
+                case "Brush":
+                    Tool Brush = new Tool(points, size, clr, name);
+                    tools.Add(Brush);
+                    break;
+                default:
+                    break;
+            }
         }
-
-        private void Drawing(int _firure)
-        {
-            if (_figure == 1) { bmp.DrawRectangle(x1, y1, x2, y2, clr); }
-            else if (_figure == 2) { bmp.DrawEllipse(x1, y1, x2, y2, clr); }
-            else if (_figure == 3) { bmp.DrawLine(x1, y1, x2, y2, clr); }
-            else if (_figure == 4) { } // bmp.DrawEllipse(x1, y1, x2, y2, Colors.Black);
-            else if (_figure == 5) { bmp.DrawLine(x1, y1, x2, y2, clr); x1 = x2; y1 = y2; }
-            else if (_figure == 6) { bmp.DrawLineAa(x1, y1, x2, y2, clr, size); x1 = x2; y1 = y2; }
-            else { }
-        }
-
     }
 }
