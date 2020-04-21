@@ -138,9 +138,8 @@ namespace GraphEditor
                 var canv = sender as Image;
                 currentPoint = e.GetPosition(canv);
 
-
-
-                if (tools[tools.Count - 1].tool_name == "Rectangle" || tools[tools.Count - 1].tool_name == "Ellipse")
+                if (tools[tools.Count - 1].tool_name == "Rectangle" || tools[tools.Count - 1].tool_name == "Ellipse" ||
+                    tools[tools.Count - 1].tool_name == "RectangleF" || tools[tools.Count - 1].tool_name == "EllipseF")
                 {
                     x1 = x < (int)currentPoint.X ? x : (int)currentPoint.X;
                     x2 = x > (int)currentPoint.X ? x : (int)currentPoint.X;
@@ -169,12 +168,18 @@ namespace GraphEditor
             else { }
         }
 
-        private void Drawing(string tool_name) // enum для этого
+        private void Drawing(string tool_name) // переделать в enum для этого
         {
             switch (tool_name)
             {
+                case "RectangleF":
+                    bmp.FillRectangle(x1, y1, x2, y2, clr); // Сделать выпакдающую менюшку на 2 типа | а делать ли?
+                    break;
+                case "EllipseF":
+                    bmp.FillEllipse(x1, y1, x2, y2, clr);
+                    break;
                 case "Rectangle":
-                    bmp.FillRectangle(x1, y1, x2, y2, clr); // Сделать выпакдающую менюшку на 2 типа
+                    bmp.DrawRectangle(x1, y1, x2, y2, clr); // Сделать выпакдающую менюшку на 2 типа | а делать ли?
                     break;
                 case "Ellipse":
                     bmp.DrawEllipse(x1, y1, x2, y2, clr);
@@ -208,6 +213,14 @@ namespace GraphEditor
                 case "Ellipse":
                     Tool Ellipse = new Tool(points, clr, name);
                     tools.Add(Ellipse);
+                    break;
+                case "RectangleF":
+                    Tool RectangleF = new Tool(points, clr, name);
+                    tools.Add(RectangleF);
+                    break;
+                case "EllipseF":
+                    Tool EllipseF = new Tool(points, clr, name);
+                    tools.Add(EllipseF);
                     break;
                 case "Cut line":
                     Tool Cut_Line = new Tool(points, clr, name);
