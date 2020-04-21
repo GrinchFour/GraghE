@@ -32,7 +32,7 @@ namespace GraphEditor
 
         List<Tool> tools = new List<Tool>();
         List<int> points = new List<int>();
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -147,14 +147,6 @@ namespace GraphEditor
                     y1 = y < (int)currentPoint.Y ? y : (int)currentPoint.Y;
                     y2 = y > (int)currentPoint.Y ? y : (int)currentPoint.Y;
                 }
-                //   else if (_figure == 4)
-                // {
-                //    if (x1 == x && y1 == y)
-                //    x1 = x;
-                //    y1 = y;
-                //    x2 = (int)currentPoint.X;
-                //   y2 = (int)currentPoint.Y;
-                // }
                 else if (tools[tools.Count - 1].tool_name == "Pencil" || tools[tools.Count - 1].tool_name == "Brush")
                 {
                     x2 = (int)currentPoint.X;
@@ -177,12 +169,12 @@ namespace GraphEditor
             else { }
         }
 
-        private void Drawing(string tool_name)
+        private void Drawing(string tool_name) // enum для этого
         {
             switch (tool_name)
             {
                 case "Rectangle":
-                    bmp.DrawRectangle(x1, y1, x2, y2, clr);
+                    bmp.FillRectangle(x1, y1, x2, y2, clr); // Сделать выпакдающую менюшку на 2 типа
                     break;
                 case "Ellipse":
                     bmp.DrawEllipse(x1, y1, x2, y2, clr);

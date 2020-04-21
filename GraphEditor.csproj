@@ -7,7 +7,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="BrokenLine.png" />
+    <None Remove="ButtonIcons\BrokenLine.png" />
+    <None Remove="ButtonIcons\Clear.png" />
+    <None Remove="ButtonIcons\Line.png" />
+    <None Remove="ButtonIcons\Palette.png" />
+    <None Remove="ButtonIcons\Карандаш.png" />
+    <None Remove="ButtonIcons\КвадратCЗ.png" />
+    <None Remove="ButtonIcons\КвадратБЗ.png" />
+    <None Remove="ButtonIcons\Кисть.png" />
+    <None Remove="ButtonIcons\КругCЗ.png" />
+    <None Remove="ButtonIcons\КругБЗ.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ColorPickerWPF" Version="1.0.9" />
     <PackageReference Include="WriteableBitmapEx" Version="1.6.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="ButtonIcons\BrokenLine.png" />
+    <Resource Include="ButtonIcons\Clear.png" />
+    <Resource Include="ButtonIcons\Line.png" />
+    <Resource Include="ButtonIcons\Palette.png" />
+    <Resource Include="ButtonIcons\Карандаш.png" />
+    <Resource Include="ButtonIcons\КвадратCЗ.png" />
+    <Resource Include="ButtonIcons\КвадратБЗ.png" />
+    <Resource Include="ButtonIcons\Кисть.png" />
+    <Resource Include="ButtonIcons\КругCЗ.png" />
+    <Resource Include="ButtonIcons\КругБЗ.png" />
   </ItemGroup>
 
 </Project>

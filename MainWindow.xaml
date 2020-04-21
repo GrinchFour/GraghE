@@ -8,16 +8,83 @@
         Title="Векторный кудахтор" Height="500" Width="800" MinHeight="450" MinWidth="800">
     <Grid Background="#808080"  MinHeight="500" MinWidth="800">
         <Image x:Name="canvas" Height="350" Width="650" Margin="150,0,0,100" MouseDown="Canvas_MouseDown" MouseUp="Canvas_MouseUp" MouseMove="Canvas_MouseMove"/>
-        <StackPanel x:Name="sp" Height="400" Margin="0,0,650,100" Background="#696969" Grid.ColumnSpan="2" MinWidth="150px" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Button Content="Rectangle" Padding="15px" MinWidth="150px" Click="DrawTool" Background="Silver"/>
-            <Button Background="#C0C0C0" Content="Ellipse" Padding="15px" MinWidth="150px"  Click="DrawTool"/>
-            <Button Background="#C0C0C0" Content="Cut line" Padding="15px" MinWidth="150px"  Click="DrawTool"/>
-            <Button Background="#C0C0C0" Content="Broken line" Padding="15px" MinWidth="150px"  Click="DrawTool"/>
-            <Button Background="#C0C0C0" Content="Pencil" Padding="15px" MinWidth="150px" Click="DrawTool"/>
-            <Button Background="#C0C0C0" Content="Brush" Padding="15px" MinWidth="150px" Click="DrawTool"/>
-            <Button Background="#C0C0C0" Content="Clear" Padding="15px" MinWidth="150px" Click="Clear"/>
-            <Button Background="#C0C0C0" Content="Palette" Padding="15px" MinWidth="150px" Click="Pltte"/>
-            <Slider Width="120" ValueChanged="Slider_ValueChanged" Minimum="1"/>
+        <StackPanel x:Name="sp1" Height="410" Background="#696969" MinWidth="50px" Width="59" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,0">
+            <Button Content="Rectangle" Padding="15px"  MinWidth="50px" Width="50px"  Click="DrawTool" Foreground="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5,1,1,1" HorizontalAlignment="Left">
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="ButtonIcons/КвадратБЗ.png" Stretch="Uniform"/>
+                </Button.OpacityMask>
+                <Button.Background>
+                    <ImageBrush ImageSource="ButtonIcons/КвадратБЗ.png" TileMode="None" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Content="Ellipse" Padding="15px" MinWidth="50px" Width="50px"  Click="DrawTool" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalContentAlignment="Left" Margin="5,1,1,1" HorizontalAlignment="Left">
+                <Button.Background>
+                    <ImageBrush ImageSource="ButtonIcons/КругБЗ.png" Stretch="Uniform"/>
+                </Button.Background>
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="ButtonIcons/КругБЗ.png" Stretch="Uniform"/>
+                </Button.OpacityMask>
+            </Button>
+            <Button Content="Cut line" Padding="15px" MinWidth="50px" Width="50px"  Click="DrawTool" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalContentAlignment="Left" Margin="5,1,1,1" HorizontalAlignment="Left">
+                <Button.Background>
+                    <ImageBrush ImageSource="ButtonIcons/Line.png" Stretch="Uniform"/>
+                </Button.Background>
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="ButtonIcons/Line.png" Stretch="Uniform"/>
+                </Button.OpacityMask>
+            </Button>
+            <Button Content="Broken line" Padding="15px" MinWidth="50px" Width="50px"  Click="DrawTool" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalContentAlignment="Left" Margin="5,1,1,1" HorizontalAlignment="Left">
+                <Button.Background>
+                    <ImageBrush ImageSource="ButtonIcons/BrokenLine.png" Stretch="Uniform"/>
+                </Button.Background>
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="ButtonIcons/BrokenLine.png" Stretch="Uniform"/>
+                </Button.OpacityMask>
+            </Button>
+            <Button Content="Pencil" Padding="15px" MinWidth="50px" Width="50px" Click="DrawTool" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalContentAlignment="Left" Margin="5,1,1,1" HorizontalAlignment="Left">
+                <Button.Background>
+                    <ImageBrush ImageSource="ButtonIcons/Карандаш.png" Stretch="Uniform"/>
+                </Button.Background>
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="ButtonIcons/Карандаш.png" Stretch="Uniform"/>
+                </Button.OpacityMask>
+            </Button>
+            <Button Content="Brush" Padding="15px" MinWidth="50px" Width="50px" Click="DrawTool" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalContentAlignment="Left" Margin="5,1,1,1" HorizontalAlignment="Left">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="ButtonIcons/Кисть.png"/>
+                </Button.Background>
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="ButtonIcons/Кисть.png" Stretch="Uniform"/>
+                </Button.OpacityMask>
+            </Button>
+            <Button Content="Clear" Padding="15px" MinWidth="50px" Width="50px" Click="Clear" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="5,1,1,1">
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="ButtonIcons/Clear.png" Stretch="Uniform"/>
+                </Button.OpacityMask>
+                <Button.Background>
+                    <ImageBrush ImageSource="ButtonIcons/Clear.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Content="Palette" Padding="15px" MinWidth="50px" Width="50px" Click="Pltte" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="5,1,1,1">
+                <Button.Background>
+                    <ImageBrush ImageSource="ButtonIcons/Palette.png" Stretch="Uniform"/>
+                </Button.Background>
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="ButtonIcons/Palette.png" Stretch="Uniform"/>
+                </Button.OpacityMask>
+            </Button>
+        </StackPanel>
+        <StackPanel x:Name="sp2" Height="125" Background="#696969" MinWidth="50px" Width="40" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="60,0,0,0">
+            <Slider Width="100"  ValueChanged="Slider_ValueChanged" Minimum="1" Maximum="60"  RenderTransformOrigin="0.5,0.5" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" MinWidth="100" MinHeight="4" Height="18" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Padding="0,0,0,0" Margin="-25,50,-25,0" HorizontalAlignment="Stretch">
+                <Slider.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Slider.RenderTransform>
+            </Slider>
         </StackPanel>
     </Grid>
 </Window>
